@@ -34,7 +34,7 @@ export default {
                 nowvalue : 'X',
                 judge : '',
                 win :'',  
-                desc :null,   //当前步数
+                desc :0,   //当前步数
                 stepnum:Array(1).fill('Go to game star'),  //生成按钮的数组
                 history:[ ['','','','','','','','',''] ],
             }  
@@ -47,10 +47,10 @@ export default {
                     this.xISnext=!this.xISnext;
                     this.judge = this.$refs.game.calculateWinner(this.list);
 
-                    history[history.length]=new Array();
+                    this.history[this.desc+1]=new Array();
                     for(let j = 0;j < 9;j++ ){
-                        history[history.length][j]=this.list[j].val;
-                    }console.log(history[history.length])
+                        this.history[this.desc+1][j]=this.list[j].val;
+                    }
 
                     this.win=this.$refs.game.win;
                     //禁用点击棋盘的：
@@ -69,12 +69,9 @@ export default {
             }, 
             jumpto:function( index ) {
                     for(let i = 0;i < 9; i++){
-                        this.list[i].val=history[index+1][i] 
+                        this.list[i].val=this.history[index+1][i] 
                     }
-                    this.list=this.list.slice()
-                    //close.log(this.list)
-                    //this.$forceUpdate()
-            }   
+            }       
         }
 }
 </script>
