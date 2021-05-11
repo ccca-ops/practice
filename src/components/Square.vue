@@ -1,6 +1,6 @@
 <template>
     <div> 
-        <button class="square" @click="onclick(index)" :disabled="dis" >
+        <button class="square" @click="onclick(index)"  :disabled="dis">
         {{val}}
         </button>
     </div>
@@ -27,7 +27,7 @@
         methods:{
            onclick:function(index){
                 this.$emit('change',index);
-                this.dis=true;
+                  
            }
         }
     }
