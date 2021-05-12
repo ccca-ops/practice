@@ -1,6 +1,5 @@
 <template>
-<div> 
-        
+<div class="title">  
   <my-board></my-board>
 </div>
 </template>
@@ -11,17 +10,12 @@ export default{
   name : 'title',
   data(){
     return{
-     
     }
   },
   components: {
     MyBoard
   },
   methods: {
-       
-       
-       
-    
   }
 }
 </script>

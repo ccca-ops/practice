@@ -27,7 +27,7 @@
                     const [a, b, c] = lines[i];
                     if (list[a].val && list[a].val === list[b].val && list[a].val === list[c].val) 
                     {
-                        this.win = list[a].val
+                        this.win = list[a].val;
                         return list[a].val
                     }
                 }

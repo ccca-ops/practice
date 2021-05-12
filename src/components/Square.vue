@@ -1,8 +1,12 @@
 <template>
     <div> 
-        <button class="square" @click="onclick(index)"  :disabled="dis">
+        <button class="square" v-if="val != '' " :disabled="dis">
         {{val}}
         </button>
+        <button class="square" v-else @click="onclick(index)">
+        {{val}}
+        </button>
+        
     </div>
 </template>
 
@@ -11,7 +15,7 @@
         name : 'square',
         data(){
             return{
-            dis : false,
+            dis : true,
             }
         },
         props: {
@@ -26,8 +30,7 @@
         },
         methods:{
            onclick:function(index){
-                this.$emit('change',index);
-                  
+                this.$emit('change',index); 
            }
         }
     }
@@ -47,6 +50,9 @@
   padding: 0;
   text-align: center;
   width: 34px;
+}
+button:disabled{
+    color:black;
 }
 
 </style>

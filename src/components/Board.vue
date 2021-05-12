@@ -1,9 +1,10 @@
 <template>
     <div class="boardrow"> 
+            <h2>winner is {{win}}</h2>
+            <h3>NEXT PLAYER IS {{nowvalue}}</h3>
             <div class="boardrow" v-for="(num,index) in list" :key="num" >
                 <my-square  :index=index :val=list[index].val 
-                        @change="changeval(index)"
-                        > 
+                        @change="changeval(index)"> 
                 </my-square>  
                 <div v-if="(index+1)%3==0" class="extra"></div>
             </div>
@@ -34,7 +35,7 @@ export default {
                 xISnext : true,
                 nowvalue : 'X',
                 judge : '',
-                win :'',  
+                win : '' ,
                 desc :0,   //当前步数
                 stepnum:Array(1).fill('Go to game star'),  //生成按钮的数组
                 history:[ ['','','','','','','','',''] ],
@@ -45,48 +46,40 @@ export default {
         },
         methods: {
             changeval:function(index){
-                    
-                    
-                    
                     this.xISnext =! this.xISnext;
                     this.judge = this.$refs.game.calculateWinner(this.list);
-                    //历史数组
-                    this.history[this.desc+1]=new Array();
-                    for(let j = 0;j < 9;j++ ){
-                        this.history[this.desc+1][j]=this.list[j].val;
-                    }
-                    this.win=this.$refs.game.win;         //获胜者
+                    //获胜者
+                    this.win=this.$refs.game.win;         
+                    
                     //禁用点击棋盘的：
                     while(this.judge === 'X' || this.judge === 'O'){
                         return null
                     }
                     if(this.xISnext == false){
                         this.list[index].val='X';
-                        this.nowvalue = this.list[index].val;   //显示next玩家
+                        this.nowvalue = 'O';   //显示next玩家
                     }else{
                         this.list[index].val='O';
-                        this.nowvalue = this.list[index].val; 
+                        this.nowvalue = 'X'; 
                     }
                     this.desc=this.desc+1; //当前步数
                     this.stepnum[this.stepnum.length]='Go to move#'+this.desc;   //把当前步数值desc存入stepnum    
                     this.stepnum=this.stepnum.slice(0,[this.desc+1]);    //根据步骤数更新按钮数组
+                    //历史数组
+                    this.history[this.desc+1]=new Array();
+                    for(let j = 0;j < 9;j++ ){
+                        this.history[this.desc+1][j]=this.list[j].val;
+                    }
+                              
             }, 
             jumpto:function( index ) {  //这里的index相当于desc，是history的步骤
                     for(let i = 0;i < 9; i++){
-                        this.list[i].val=this.history[index+1][i] 
+                        if(index == 0)this.list[i].val='';    //点击gamestar情况
+                        else this.list[i].val=this.history[index+1][i];
                     }
                     this.desc=index   //改变当前步骤数
-                    
-                    //if(this.desc%2 == 1 )this.xISnext=false;   //有bug
-                    
-                    
-                    var count = 0;
-                    for(let j=0;j<9;j++){
-                        if(this.list[j].val === 'X' || this.list[j].val === 'O')
-                          count++;
-                    }
-                    console.log(this.xISnext)
-                    if(count%2==1) this.xISnext=false;  
+                    if(this.desc%2 == 1 )this.xISnext=false;
+                    if(this.desc%2 == 0 )this.xISnext=true;
             }       
         }
 }
