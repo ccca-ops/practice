@@ -26,7 +26,6 @@ export default defineComponent({
   },
   setup (props, context) {
     const dis = ref(true)
-
     const onclick = (index : number) => {
       context.emit('change', index)
     }
