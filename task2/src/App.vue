@@ -1,5 +1,5 @@
 <template>
-<div class="title">  
+<div class="blank">  
   <my-board></my-board>
 </div>
 </template>
@@ -7,7 +7,7 @@
 <script>
 import MyBoard from './components/Board';
 export default{
-  name : 'title',
+  name : 'blank',
   data(){
     return{
     }
